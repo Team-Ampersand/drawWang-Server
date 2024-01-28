@@ -1,14 +1,17 @@
 package server.drawwang.domain.thread.entity;
 
 import jakarta.persistence.*;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import server.drawwang.domain.board.entity.BoardEntity;
-import java.util.List;
 
+import java.util.List;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "thread")
 public class ThreadEntity {
 
@@ -16,17 +19,16 @@ public class ThreadEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "thread_name", nullable = false)
+    @Column(name = "thread_name")
     private String threadName;
 
-    @Column(name = "expiry_time", nullable = false)
-    private String expiryTime;
+    @Column(name = "expired_time")
+    private String expiredTime;
 
-    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "thread_id", cascade = CascadeType.ALL)
     private List<BoardEntity> boardList;
 
-    @OneToOne
-    @JoinColumn(name = "king")
-    private BoardEntity king;
+    @Column(name = "king_board_id")
+    private Long kingBoardId;
 
 }
