@@ -9,24 +9,24 @@ import java.util.List;
 
 @Entity
 @Getter
-@Table(name = "Thread")
+@Table(name = "thread")
 public class ThreadEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ThreadName", nullable = false)
+    @Column(name = "thread_name", nullable = false)
     private String threadName;
 
-    @Column(name = "ExpiryTime", nullable = false)
+    @Column(name = "expiry_time", nullable = false)
     private String expiryTime;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL)
     private List<BoardEntity> boardList;
 
     @OneToOne
-    @JoinColumn(name = "King")
+    @JoinColumn(name = "king")
     private BoardEntity king;
 
 }
