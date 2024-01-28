@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: ${DB_URL}
     driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   h2:
     console:
       enabled: true
@@ -13,4 +13,4 @@ spring:
     show-sql: true
 
 server:
-  port: 8080
+  port: ${SERVER_PORT}
