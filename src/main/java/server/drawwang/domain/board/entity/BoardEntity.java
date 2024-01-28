@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import server.drawwang.domain.thread.entity.ThreadEntity;
 
 @Entity
 @Getter
@@ -19,8 +20,9 @@ public class BoardEntity {
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "thread_id")
-    private int threadId;
+    @ManyToOne
+    @JoinColumn(name = "thread")
+    private ThreadEntity thread;
 
     @Column(name = "image_url")
     private String imageUrl;
