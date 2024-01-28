@@ -28,6 +28,6 @@ public class BoardEntity {
     private String imageUrl;
 
     @Column(name = "likes")
-    private int likes;
+    private Integer likes;
 
 }
