@@ -4,24 +4,24 @@ import jakarta.persistence.*;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 
 @Entity
-@Table(name = "Board")
+@Table(name = "board")
 public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "UserName", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
     @ManyToOne
-    @JoinColumn(name = "ThreadId", nullable = false)
+    @JoinColumn(name = "thread_id", nullable = false)
     private ThreadEntity thread;
 
-    @Column(name = "ImageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "Likes")
+    @Column(name = "likes")
     private int likes;
 
 }
