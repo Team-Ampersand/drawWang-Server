@@ -10,10 +10,10 @@ import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.repository.ThreadRepository;
+import server.drawwang.global.exception.ThreadNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
                     0);
 
             boardRepository.save(boardEntity);
-        } else throw new RuntimeException();
+        } else throw new ThreadNotFoundException();
     }
 
     @Override

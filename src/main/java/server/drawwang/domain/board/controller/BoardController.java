@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import server.drawwang.domain.board.entity.BoardEntity;
 import server.drawwang.domain.board.entity.ToBoardResponse;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.entity.dto.response.BoardListResponse;
