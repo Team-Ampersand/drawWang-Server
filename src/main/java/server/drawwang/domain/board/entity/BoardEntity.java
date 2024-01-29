@@ -30,4 +30,10 @@ public class BoardEntity {
     @Column(name = "likes")
     private Integer likes;
 
+    public BoardEntity(String userName, ThreadEntity thread, String imageUrl, Integer likes) {
+        this.userName = userName;
+        this.thread = thread;
+        this.imageUrl = imageUrl;
+        this.likes = likes;
+    }
 }

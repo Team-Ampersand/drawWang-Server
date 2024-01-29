@@ -25,4 +25,9 @@ public class ThreadEntity {
     @Column(name = "king_board_id")
     private Long kingBoardId;
 
+    public ThreadEntity(String threadName, String expiredTime, Long kingBoardId) {
+        this.threadName = threadName;
+        this.expiredTime = expiredTime;
+        this.kingBoardId = kingBoardId;
+    }
 }
