@@ -19,7 +19,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<Void> submitBoard(@Validated @RequestBody BoardSubmitRequest request) {
+    public ResponseEntity<Void> createBoard(@Validated @RequestBody BoardSubmitRequest request) {
         boardService.submitBoard(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
