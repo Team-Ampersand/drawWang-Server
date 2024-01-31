@@ -26,9 +26,8 @@ public class BoardController {
 
     @GetMapping
     public ResponseEntity<BoardListResponse> listBoard() {
-        List<ToBoardResponse> boardEntities = boardService.listBoard();
+        List<ToBoardResponse> response = boardService.listBoard();
 
-        return new ResponseEntity<>(new BoardListResponse(boardEntities),
-                boardEntities.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+        return new ResponseEntity<>(new BoardListResponse(response), HttpStatus.OK);
     }
 }

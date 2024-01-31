@@ -23,18 +23,17 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     @Transactional
-    public void submitBoard(BoardSubmitRequest request) throws RuntimeException {
-        Optional<ThreadEntity> threadEntity = threadRepository.findById(request.getThreadId());
+    public void submitBoard(BoardSubmitRequest request) {
+        ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
+                .orElseThrow(ThreadNotFoundException::new);
 
-        if(threadEntity.isPresent()){
-            BoardEntity boardEntity = new BoardEntity(
-                    request.getUserName(),
-                    threadEntity.get(),
-                    request.getImageUrl(),
-                    0);
+        BoardEntity boardEntity = new BoardEntity(
+                request.getUserName(),
+                threadEntity,
+                request.getImageUrl(),
+                0);
 
-            boardRepository.save(boardEntity);
-        } else throw new ThreadNotFoundException();
+        boardRepository.save(boardEntity);
     }
 
     @Override

@@ -1,4 +1,6 @@
 package server.drawwang.global.exception;
 
-public class ThreadNotFoundException extends RuntimeException{
+import jakarta.persistence.EntityNotFoundException;
+
+public class ThreadNotFoundException extends EntityNotFoundException {
 }
