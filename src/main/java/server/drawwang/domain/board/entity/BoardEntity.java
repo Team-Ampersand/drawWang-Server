@@ -2,6 +2,7 @@ package server.drawwang.domain.board.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import server.drawwang.domain.thread.entity.ThreadEntity;
@@ -11,6 +12,7 @@ import server.drawwang.domain.thread.entity.ThreadEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "board")
+@Builder
 public class BoardEntity {
 
     @Id
@@ -29,11 +31,4 @@ public class BoardEntity {
 
     @Column(name = "likes")
     private Integer likes;
-
-    public BoardEntity(String userName, ThreadEntity thread, String imageUrl, Integer likes) {
-        this.userName = userName;
-        this.thread = thread;
-        this.imageUrl = imageUrl;
-        this.likes = likes;
-    }
 }

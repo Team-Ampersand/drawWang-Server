@@ -13,6 +13,12 @@ public class TestDataInit {
 
     @PostConstruct
     public void Init() {
-        threadRepository.save(new ThreadEntity("Test", "Test", 1L));
+        ThreadEntity threadEntity = ThreadEntity.builder()
+                .threadName("Test")
+                .expiredTime("Test")
+                .kingBoardId(1L)
+                .build();
+
+        threadRepository.save(threadEntity);
     }
 }

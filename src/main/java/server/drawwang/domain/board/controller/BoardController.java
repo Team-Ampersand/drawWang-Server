@@ -21,7 +21,7 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<Void> createBoard(@Validated @RequestBody BoardSubmitRequest request) {
         boardService.submitBoard(request);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping

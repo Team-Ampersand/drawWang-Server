@@ -13,7 +13,6 @@ import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.global.exception.ThreadNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +26,12 @@ public class BoardServiceImpl implements BoardService {
         ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
                 .orElseThrow(ThreadNotFoundException::new);
 
-        BoardEntity boardEntity = new BoardEntity(
-                request.getUserName(),
-                threadEntity,
-                request.getImageUrl(),
-                0);
+        BoardEntity boardEntity = BoardEntity.builder()
+                .userName(request.getUserName())
+                .thread(threadEntity)
+                .imageUrl(request.getImageUrl())
+                .likes(0)
+                .build();
 
         boardRepository.save(boardEntity);
     }

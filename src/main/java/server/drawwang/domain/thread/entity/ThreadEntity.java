@@ -2,6 +2,7 @@ package server.drawwang.domain.thread.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "thread")
+@Builder
 public class ThreadEntity {
 
     @Id
@@ -24,10 +26,4 @@ public class ThreadEntity {
 
     @Column(name = "king_board_id")
     private Long kingBoardId;
-
-    public ThreadEntity(String threadName, String expiredTime, Long kingBoardId) {
-        this.threadName = threadName;
-        this.expiredTime = expiredTime;
-        this.kingBoardId = kingBoardId;
-    }
 }
