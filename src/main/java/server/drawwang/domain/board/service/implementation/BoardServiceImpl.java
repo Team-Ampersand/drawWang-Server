@@ -10,7 +10,8 @@ import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.repository.ThreadRepository;
-import server.drawwang.global.exception.ThreadNotFoundException;
+import server.drawwang.global.exception.CustomErrorCode;
+import server.drawwang.global.exception.CustomException;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void submitBoard(BoardSubmitRequest request) {
         ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
-                .orElseThrow(ThreadNotFoundException::new);
+                .orElseThrow(() -> new CustomException(CustomErrorCode.THREAD_NOT_FOUND_ERROR));
 
         BoardEntity boardEntity = BoardEntity.builder()
                 .userName(request.getUserName())
