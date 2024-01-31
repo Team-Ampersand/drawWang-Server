@@ -1,21 +1,19 @@
 package server.drawwang.domain.board.entity.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class BoardSubmitRequest {
     @NotNull
-    private Long threadId;
+    private final Long threadId;
 
     @NotBlank
-    private String userName;
+    private final String userName;
 
     @NotBlank
-    private String imageUrl;
+    private final String imageUrl;
 }
