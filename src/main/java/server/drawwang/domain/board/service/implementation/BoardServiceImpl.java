@@ -55,6 +55,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void boardLike(BoardStateUpdate board) {
         Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
@@ -64,6 +65,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void boardReport(BoardStateUpdate board) {
         Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
