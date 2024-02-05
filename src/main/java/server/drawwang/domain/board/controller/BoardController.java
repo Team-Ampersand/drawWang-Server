@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.drawwang.domain.board.entity.ToBoardResponse;
+import server.drawwang.domain.board.entity.dto.request.BoardStateUpdate;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.entity.dto.response.BoardListResponse;
 import server.drawwang.domain.board.service.BoardService;
@@ -30,15 +31,15 @@ public class BoardController {
         return new ResponseEntity<>(new BoardListResponse(response), HttpStatus.OK);
     }
 
-    @PostMapping("/like/{boardId}")
-    public ResponseEntity<Void> boardLikes(@PathVariable Long boardId) {
-        boardService.boardLike(boardId);
+    @PostMapping("/like")
+    public ResponseEntity<Void> boardLikes(@Validated @RequestBody BoardStateUpdate board) {
+        boardService.boardLike(board);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/report/{boardId}")
-    public ResponseEntity<Void> boardReport(@PathVariable Long boardId) {
-        boardService.boardReport(boardId);
+    @PostMapping("/report")
+    public ResponseEntity<Void> boardReport(@Validated @RequestBody BoardStateUpdate board) {
+        boardService.boardReport(board);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

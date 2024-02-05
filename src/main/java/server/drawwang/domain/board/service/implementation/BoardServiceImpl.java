@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import server.drawwang.domain.board.entity.BoardEntity;
 import server.drawwang.domain.board.entity.ToBoardResponse;
+import server.drawwang.domain.board.entity.dto.request.BoardStateUpdate;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
@@ -54,7 +55,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void boardLike(Long boardId) {
+    public void boardLike(BoardStateUpdate board) {
+        Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
         boardEntity.updateLike();
@@ -62,7 +64,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void boardReport(Long boardId) {
+    public void boardReport(BoardStateUpdate board) {
+        Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
         boardEntity.updateReports();
