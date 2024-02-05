@@ -30,13 +30,13 @@ public class BoardController {
         return new ResponseEntity<>(new BoardListResponse(response), HttpStatus.OK);
     }
 
-    @PostMapping("/{boardId}/like")
-    public ResponseEntity<Void> boardLikes(@PathVariable Long boardId) {
+    @PatchMapping("/{boardId}/like")
+    public ResponseEntity<Void> boaardLikes(@PathVariable Long boardId) {
         boardService.boardLike(boardId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{boardId}/report")
+    @PatchMapping("/{boardId}/report")
     public ResponseEntity<Void> boardReport(@PathVariable Long boardId) {
         boardService.boardReport(boardId);
         return new ResponseEntity<>(HttpStatus.OK);
