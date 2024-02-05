@@ -27,7 +27,18 @@ public class BoardController {
     @GetMapping
     public ResponseEntity<BoardListResponse> listBoard() {
         List<ToBoardResponse> response = boardService.listBoard();
-
         return new ResponseEntity<>(new BoardListResponse(response), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{boardId}/like")
+    public ResponseEntity<Void> boaardLikes(@PathVariable Long boardId) {
+        boardService.boardLike(boardId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{boardId}/report")
+    public ResponseEntity<Void> boardReport(@PathVariable Long boardId) {
+        boardService.boardReport(boardId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

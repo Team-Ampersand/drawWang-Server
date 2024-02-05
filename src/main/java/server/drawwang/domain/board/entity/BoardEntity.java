@@ -31,4 +31,15 @@ public class BoardEntity {
 
     @Column(name = "likes")
     private Integer likes;
+
+    @Column(name = "reports")
+    private Integer reports;
+
+    public void plusLike() {
+        this.likes++;
+    }
+
+    public void plusReports() {
+        this.reports++;
+    }
 }

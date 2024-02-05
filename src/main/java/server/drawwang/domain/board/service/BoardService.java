@@ -8,4 +8,8 @@ import java.util.List;
 public interface BoardService {
     void submitBoard(BoardSubmitRequest request);
     List<ToBoardResponse> listBoard();
+
+    void boardLike(Long board);
+
+    void boardReport(Long board);
 }

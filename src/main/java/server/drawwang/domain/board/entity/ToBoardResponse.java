@@ -15,4 +15,5 @@ public class ToBoardResponse {
     private String imageUrl;
 
     private Integer likes;
+    private Integer reports;
 }

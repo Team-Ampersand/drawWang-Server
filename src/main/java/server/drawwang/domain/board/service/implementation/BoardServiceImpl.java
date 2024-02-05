@@ -22,7 +22,7 @@ public class BoardServiceImpl implements BoardService {
     private final ThreadRepository threadRepository;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void submitBoard(BoardSubmitRequest request) {
         ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
                 .orElseThrow(() -> new CustomException(CustomErrorCode.THREAD_NOT_FOUND_ERROR));
@@ -32,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
                 .thread(threadEntity)
                 .imageUrl(request.getImageUrl())
                 .likes(0)
+                .reports(0)
                 .build();
 
         boardRepository.save(boardEntity);
@@ -42,12 +43,29 @@ public class BoardServiceImpl implements BoardService {
 
         return boardRepository.findAll()
                 .stream()
-                .map( boardEntity -> new ToBoardResponse(
+                .map(boardEntity -> new ToBoardResponse(
                         boardEntity.getId(),
                         boardEntity.getUserName(),
                         boardEntity.getThread().getId(),
                         boardEntity.getImageUrl(),
-                        boardEntity.getLikes()))
+                        boardEntity.getLikes(),
+                        boardEntity.getReports()))
                 .toList();
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void boardLike(Long boardId) {
+        BoardEntity boardEntity = boardRepository.findById(boardId)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
+        boardEntity.plusLike();
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void boardReport(Long boardId) {
+        BoardEntity boardEntity = boardRepository.findById(boardId)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
+        boardEntity.plusReports();
     }
 }
