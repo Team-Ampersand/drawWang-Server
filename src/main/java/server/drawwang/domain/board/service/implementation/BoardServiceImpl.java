@@ -59,7 +59,6 @@ public class BoardServiceImpl implements BoardService {
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
         boardEntity.plusLike();
-        boardRepository.save(boardEntity);
     }
 
     @Override
@@ -68,6 +67,5 @@ public class BoardServiceImpl implements BoardService {
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
         boardEntity.plusReports();
-        boardRepository.save(boardEntity);
     }
 }
