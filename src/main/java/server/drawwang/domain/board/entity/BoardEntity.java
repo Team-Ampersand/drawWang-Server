@@ -35,11 +35,11 @@ public class BoardEntity {
     @Column(name = "reports")
     private Integer reports;
 
-    public void updateLike() {
+    public void plusLike() {
         this.likes++;
     }
 
-    public void updateReports() {
+    public void plusReports() {
         this.reports++;
     }
 }

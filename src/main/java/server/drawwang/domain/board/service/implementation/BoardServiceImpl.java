@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
         Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
-        boardEntity.updateLike();
+        boardEntity.plusLike();
         boardRepository.save(boardEntity);
     }
 
@@ -70,7 +70,7 @@ public class BoardServiceImpl implements BoardService {
         Long boardId = board.getBoardId();
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
-        boardEntity.updateReports();
+        boardEntity.plusReports();
         boardRepository.save(boardEntity);
     }
 }
