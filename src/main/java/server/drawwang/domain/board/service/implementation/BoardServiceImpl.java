@@ -22,7 +22,7 @@ public class BoardServiceImpl implements BoardService {
     private final ThreadRepository threadRepository;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void submitBoard(BoardSubmitRequest request) {
         ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
                 .orElseThrow(() -> new CustomException(CustomErrorCode.THREAD_NOT_FOUND_ERROR));
@@ -54,7 +54,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void boardLike(Long boardId) {
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
@@ -63,7 +63,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = {Exception.class})
     public void boardReport(Long boardId) {
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
