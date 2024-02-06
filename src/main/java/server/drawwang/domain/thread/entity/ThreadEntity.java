@@ -65,10 +65,10 @@ public class ThreadEntity {
 
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
-    private LocalDateTime createdDate;
+    private LocalDateTime expiredDate;
 
     @PrePersist
     public void setExpiredDate() {
-        this.createdDate = this.createdDate.plusHours(24);
+        this.expiredDate = this.expiredDate.plusHours(24);
     }
 }

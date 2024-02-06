@@ -37,7 +37,7 @@ public class ThreadServiceImpl implements ThreadService {
                         threadEntity.getId(),
                         threadEntity.getThreadName(),
                         threadEntity.getKingBoardId(),
-                        threadEntity.getCreatedDate()))
+                        threadEntity.getExpiredDate()))
                 .toList();
     }
 }
