@@ -16,6 +16,6 @@ public class ToThreadResponse {
 
     private Long kingBoardId;
 
-    private LocalDateTime expiredTime;
+    private LocalDateTime expirationDate;
 
 }
