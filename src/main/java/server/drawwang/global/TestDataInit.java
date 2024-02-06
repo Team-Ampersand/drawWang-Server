@@ -1,3 +1,4 @@
+/*
 package server.drawwang.global;
 
 import jakarta.annotation.PostConstruct;
@@ -15,10 +16,11 @@ public class TestDataInit {
     public void Init() {
         ThreadEntity threadEntity = ThreadEntity.builder()
                 .threadName("Test")
-                .expiredTime("Test")
+                .expireTime("Test")
                 .kingBoardId(1L)
                 .build();
 
         threadRepository.save(threadEntity);
     }
 }
+*/
