@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.OptionalLong;
 
 @Getter
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class ToThreadResponse {
 
     private final String threadName;
 
-    private final Long kingBoardId;
+    private final Optional<Long> kingBoardId;
 
     private final String kingImageUrl;
 

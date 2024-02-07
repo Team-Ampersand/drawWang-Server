@@ -12,6 +12,8 @@ import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.domain.thread.service.ThreadService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 @Service
@@ -32,23 +34,17 @@ public class ThreadServiceImpl implements ThreadService {
 
     @Override
     public List<ToThreadResponse> listThread() {
-        return threadRepository.findAll()
-                .stream()
+        return threadRepository.findAll().stream()
                 .map(threadEntity -> {
                     Long kingBoardId = threadEntity.getKingBoardId();
-                    String kingImageUrl = ""; 
-
-                    if (kingBoardId != null) {
-                        BoardEntity boardEntity = boardRepository.findById(kingBoardId).orElse(null);
-                        if (boardEntity != null) {
-                            kingImageUrl = boardEntity.getImageUrl();
-                        }
-                    }
+                    String kingImageUrl = Optional.ofNullable(kingBoardId)
+                            .flatMap(id -> boardRepository.findById(id).map(BoardEntity::getImageUrl))
+                            .orElse("");
 
                     return new ToThreadResponse(
                             threadEntity.getId(),
                             threadEntity.getThreadName(),
-                            kingBoardId,
+                            Optional.ofNullable(kingBoardId),
                             kingImageUrl,
                             threadEntity.getExpirationDate()
                     );
