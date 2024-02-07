@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class ToThreadResponse {
-    private Long threadId;
+    private final Long threadId;
 
-    private String threadName;
+    private final String threadName;
 
-    private Long kingBoardId;
+    private final Long kingBoardId;
 
-    private LocalDateTime expirationDate;
+    private final LocalDateTime expirationDate;
 
 }
