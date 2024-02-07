@@ -16,6 +16,8 @@ public class ToThreadResponse {
 
     private final Long kingBoardId;
 
+    private final String kingImageUrl;
+
     private final LocalDateTime expirationDate;
 
 }

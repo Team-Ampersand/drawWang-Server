@@ -3,7 +3,8 @@ package server.drawwang.domain.thread.service.implementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import server.drawwang.domain.board.entity.ToBoardResponse;
+import server.drawwang.domain.board.entity.BoardEntity;
+import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.entity.dto.request.CreateThreadRequest;
 import server.drawwang.domain.thread.entity.dto.response.ToThreadResponse;
@@ -18,13 +19,13 @@ import java.util.List;
 public class ThreadServiceImpl implements ThreadService {
 
     private final ThreadRepository threadRepository;
+    private final BoardRepository boardRepository;
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public void createThread(CreateThreadRequest createThreadRequest) {
         ThreadEntity threadEntity = ThreadEntity.builder()
                 .threadName(createThreadRequest.getThreadName())
-                .kingBoardId(1L)
                 .build();
         threadRepository.save(threadEntity);
     }
@@ -33,11 +34,25 @@ public class ThreadServiceImpl implements ThreadService {
     public List<ToThreadResponse> listThread() {
         return threadRepository.findAll()
                 .stream()
-                .map(threadEntity -> new ToThreadResponse(
-                        threadEntity.getId(),
-                        threadEntity.getThreadName(),
-                        threadEntity.getKingBoardId(),
-                        threadEntity.getExpirationDate()))
+                .map(threadEntity -> {
+                    Long kingBoardId = threadEntity.getKingBoardId();
+                    String kingImageUrl = ""; 
+
+                    if (kingBoardId != null) {
+                        BoardEntity boardEntity = boardRepository.findById(kingBoardId).orElse(null);
+                        if (boardEntity != null) {
+                            kingImageUrl = boardEntity.getImageUrl();
+                        }
+                    }
+
+                    return new ToThreadResponse(
+                            threadEntity.getId(),
+                            threadEntity.getThreadName(),
+                            kingBoardId,
+                            kingImageUrl,
+                            threadEntity.getExpirationDate()
+                    );
+                })
                 .toList();
     }
 }
