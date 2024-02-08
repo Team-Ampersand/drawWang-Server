@@ -26,7 +26,7 @@ public class ThreadController {
 
     @GetMapping
     public ResponseEntity<ThreadListResponse> listThread() {
-        List<ToThreadResponse> Threads = threadService.listThread();
-        return new ResponseEntity<>(new ThreadListResponse(Threads), HttpStatus.OK);
+        List<ToThreadResponse> threads = threadService.listThread();
+        return new ResponseEntity<>(new ThreadListResponse(threads), HttpStatus.OK);
     }
 }
