@@ -13,7 +13,7 @@ import server.drawwang.domain.thread.service.ThreadService;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
+import java.time.LocalDateTime;
 
 
 @Service
@@ -26,9 +26,14 @@ public class ThreadServiceImpl implements ThreadService {
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public void createThread(CreateThreadRequest createThreadRequest) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expirationDate = now.plusHours(24);
+
         ThreadEntity threadEntity = ThreadEntity.builder()
                 .threadName(createThreadRequest.getThreadName())
+                .expirationDate(expirationDate)
                 .build();
+
         threadRepository.save(threadEntity);
     }
 

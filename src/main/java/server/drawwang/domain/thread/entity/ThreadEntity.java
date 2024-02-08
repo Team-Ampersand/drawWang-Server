@@ -48,7 +48,6 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "thread")
 @Builder
 public class ThreadEntity {
@@ -63,12 +62,7 @@ public class ThreadEntity {
     @Column(name = "king_board_id")
     private Long kingBoardId;
 
-    @CreatedDate
-    @DateTimeFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
+    @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
-    @PrePersist
-    public void setExpirationDate() {
-        this.expirationDate = this.expirationDate.plusHours(24);
-    }
 }
