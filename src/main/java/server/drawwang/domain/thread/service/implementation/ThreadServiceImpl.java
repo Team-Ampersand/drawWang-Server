@@ -44,7 +44,7 @@ public class ThreadServiceImpl implements ThreadService {
                     return new ToThreadResponse(
                             threadEntity.getId(),
                             threadEntity.getThreadName(),
-                            Optional.ofNullable(kingBoardId),
+                            kingBoardId,
                             kingImageUrl,
                             threadEntity.getExpirationDate()
                     );

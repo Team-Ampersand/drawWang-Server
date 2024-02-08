@@ -16,7 +16,7 @@ public class ToThreadResponse {
 
     private final String threadName;
 
-    private final Optional<Long> kingBoardId;
+    private final Long kingBoardId;
 
     private final String kingImageUrl;
 
