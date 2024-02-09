@@ -9,6 +9,6 @@ import java.util.List;
 public interface ThreadService {
     void createThread(CreateThreadRequest createThreadRequest);
 
-    List<ToThreadResponse> listThread();
+    List<ToThreadResponse> getThread();
 
 }

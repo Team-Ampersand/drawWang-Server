@@ -38,7 +38,7 @@ public class ThreadServiceImpl implements ThreadService {
     }
 
     @Override
-    public List<ToThreadResponse> listThread() {
+    public List<ToThreadResponse> getThread() {
         return threadRepository.findAll().stream()
                 .map(threadEntity -> {
                     Long kingBoardId = threadEntity.getKingBoardId();
