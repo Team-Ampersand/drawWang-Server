@@ -10,7 +10,10 @@ import server.drawwang.domain.thread.entity.dto.request.CreateThreadRequest;
 import server.drawwang.domain.thread.entity.dto.response.ToThreadResponse;
 import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.domain.thread.service.ThreadService;
+import server.drawwang.global.exception.CustomErrorCode;
+import server.drawwang.global.exception.CustomException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDateTime;
@@ -55,5 +58,30 @@ public class ThreadServiceImpl implements ThreadService {
                     );
                 })
                 .toList();
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void updateThreadKing(Long threadId) {
+        ThreadEntity threadEntity = threadRepository.findById(threadId)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.THREAD_NOT_FOUND_ERROR));
+        validateThreadKing(threadEntity);
+
+        Comparator<BoardEntity> comparator = Comparator.comparing(BoardEntity::getLikes);
+        BoardEntity maxBoardEntity = boardRepository.findAllByThread(threadEntity).stream()
+                .max(comparator)
+                .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
+
+        threadEntity.setKingBoardId(maxBoardEntity.getId());
+    }
+
+    public void validateThreadKing(ThreadEntity threadEntity) {
+        if (threadEntity.getKingBoardId() != null) {
+            throw new CustomException(CustomErrorCode.THREAD_KING_ALREADY_EXISTS);
+        }
+
+        if (threadEntity.getExpirationDate().isAfter(LocalDateTime.now())) {
+            throw new CustomException(CustomErrorCode.THREAD_NOT_EXPIRED);
+        }
     }
 }

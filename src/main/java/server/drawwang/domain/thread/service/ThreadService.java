@@ -1,6 +1,5 @@
 package server.drawwang.domain.thread.service;
 
-import server.drawwang.domain.board.entity.ToBoardResponse;
 import server.drawwang.domain.thread.entity.dto.request.CreateThreadRequest;
 import server.drawwang.domain.thread.entity.dto.response.ToThreadResponse;
 
@@ -11,4 +10,5 @@ public interface ThreadService {
 
     List<ToThreadResponse> getThread();
 
+    void updateThreadKing(Long threadId);
 }
