@@ -29,10 +29,4 @@ public class ThreadController {
         List<ToThreadResponse> threads = threadService.getThread();
         return new ResponseEntity<>(new ThreadListResponse(threads), HttpStatus.OK);
     }
-
-    @PutMapping("/{threadId}/king")
-    public ResponseEntity<Void> updateThreadKing(@PathVariable Long threadId) {
-        threadService.updateThreadKing(threadId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }
