@@ -10,6 +10,7 @@ import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
 import server.drawwang.domain.board.service.implementation.event.BoardLikedEvent;
+import server.drawwang.domain.board.service.implementation.event.SubmittedBoardEvent;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.global.exception.CustomErrorCode;
@@ -39,6 +40,8 @@ public class BoardServiceImpl implements BoardService {
                 .build();
 
         boardRepository.save(boardEntity);
+
+        publisher.publishEvent(new SubmittedBoardEvent(threadEntity, boardEntity));
     }
 
     @Override
