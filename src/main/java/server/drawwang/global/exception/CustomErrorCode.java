@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum CustomErrorCode {
 
     //==400==//
+    THREAD_KING_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "쓰레드 왕의 게시물을 찾을 수 없습니다."),
     THREAD_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "쓰레드를 찾을 수 없습니다."),
     BOARD_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "게시물을 찾을 수 없습니다.");
 
