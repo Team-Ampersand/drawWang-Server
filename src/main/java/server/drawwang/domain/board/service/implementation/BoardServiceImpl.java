@@ -1,6 +1,7 @@
 package server.drawwang.domain.board.service.implementation;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import server.drawwang.domain.board.entity.BoardEntity;
@@ -8,6 +9,8 @@ import server.drawwang.domain.board.entity.ToBoardResponse;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
+import server.drawwang.domain.board.service.implementation.event.BoardLikedEvent;
+import server.drawwang.domain.board.service.implementation.event.SubmittedBoardEvent;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.global.exception.CustomErrorCode;
@@ -20,6 +23,7 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final ThreadRepository threadRepository;
+    private final ApplicationEventPublisher publisher;
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
@@ -36,6 +40,8 @@ public class BoardServiceImpl implements BoardService {
                 .build();
 
         boardRepository.save(boardEntity);
+
+        publisher.publishEvent(new SubmittedBoardEvent(threadEntity, boardEntity));
     }
 
     @Override
@@ -59,6 +65,8 @@ public class BoardServiceImpl implements BoardService {
         BoardEntity boardEntity = boardRepository.findById(boardId)
                 .orElseThrow(() -> new CustomException(CustomErrorCode.BOARD_NOT_FOUND_ERROR));
         boardEntity.plusLike();
+
+        publisher.publishEvent(new BoardLikedEvent(boardEntity));
     }
 
     @Override
