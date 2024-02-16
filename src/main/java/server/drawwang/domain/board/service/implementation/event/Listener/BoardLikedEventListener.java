@@ -1,7 +1,6 @@
 package server.drawwang.domain.board.service.implementation.event.Listener;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,6 @@ public class BoardLikedEventListener {
     private final ThreadRepository threadRepository;
     private final BoardRepository boardRepository;
 
-    @Async
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @TransactionalEventListener
     public void updateThreadKing(BoardLikedEvent event) {

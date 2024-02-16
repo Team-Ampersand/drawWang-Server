@@ -1,7 +1,6 @@
 package server.drawwang.domain.board.service.implementation.event.Listener;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ import server.drawwang.domain.thread.repository.ThreadRepository;
 public class SubmittedBoardEventListener {
     private final ThreadRepository threadRepository;
 
-    @Async
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @TransactionalEventListener
     public void updateKingIfEmptyThread(SubmittedBoardEvent event) {
