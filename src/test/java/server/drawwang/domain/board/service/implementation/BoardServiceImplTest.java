@@ -22,13 +22,14 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @Transactional
 class BoardServiceImplTest {
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
-    BoardService boardService;
+    private ThreadRepository threadRepository;
+
     @Autowired
-    ThreadRepository threadRepository;
-    @Autowired
-    BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
     @BeforeEach
     void setUp() {

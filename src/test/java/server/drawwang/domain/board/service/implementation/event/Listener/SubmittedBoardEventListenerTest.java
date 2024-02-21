@@ -20,13 +20,13 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class SubmittedBoardEventListenerTest {
     @Autowired
-    ThreadRepository threadRepository;
+    private ThreadRepository threadRepository;
 
     @Autowired
-    BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
     @Autowired
-    ApplicationEventPublisher publisher;
+    private ApplicationEventPublisher publisher;
 
     @Test
     void updateKingIfEmptyThread() {
