@@ -4,9 +4,6 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
-  h2:
-    console:
-      enabled: true
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MariaDBDialect
