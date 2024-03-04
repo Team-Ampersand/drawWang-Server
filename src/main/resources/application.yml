@@ -4,15 +4,14 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
 
 server:
-  port: 8080
-
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.MariaDBDialect
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-    show-sql: true
+  port: ${SERVER_PORT}
