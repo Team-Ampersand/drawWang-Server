@@ -26,6 +26,9 @@ public class ThreadEntity {
     @Column(name = "king_board_id")
     private Long kingBoardId;
 
+    @Column(name = "local_date")
+    private LocalDateTime localDateTime;
+
     @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 

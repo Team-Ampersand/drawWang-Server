@@ -32,6 +32,7 @@ public class ThreadServiceImpl implements ThreadService {
         ThreadEntity threadEntity = ThreadEntity.builder()
                 .threadName(createThreadRequest.getThreadName())
                 .expirationDate(expirationDate)
+                .localDateTime(now)
                 .build();
 
         threadRepository.save(threadEntity);
