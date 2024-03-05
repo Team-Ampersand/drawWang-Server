@@ -27,7 +27,7 @@ public class ThreadServiceImpl implements ThreadService {
     @Transactional(rollbackFor = {Exception.class})
     public void createThread(CreateThreadRequest createThreadRequest) {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime expirationDate = now.plusHours(21);
+        LocalDateTime expirationDate = now.plusHours(33);
 
         ThreadEntity threadEntity = ThreadEntity.builder()
                 .threadName(createThreadRequest.getThreadName())
