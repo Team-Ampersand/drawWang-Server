@@ -18,7 +18,7 @@ public class FileStore {
             return null;
         }
 
-        return System.getProperty("user.dir") + File.separator + "/src/main/resources/images/" + fileName;
+        return System.getProperty("user.dir") + File.separator + "/src/main/resources/static/" + fileName;
     }
 
     public String getPartialImagesPath(String fileName) {
@@ -26,7 +26,7 @@ public class FileStore {
             return "";
         }
 
-        return "/images/" + fileName;
+        return "/static/" + fileName;
     }
 
     public String storeFile(MultipartFile multipartFile)
