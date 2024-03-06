@@ -13,7 +13,4 @@ public class BoardSubmitRequest {
 
     @NotBlank
     private final String userName;
-
-    @NotBlank
-    private final String imageUrl;
 }
