@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import server.drawwang.domain.board.entity.ToBoardResponse;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
 import server.drawwang.domain.board.entity.dto.response.BoardListResponse;
@@ -19,8 +20,9 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping
-    public ResponseEntity<Void> createBoard(@Validated @RequestBody BoardSubmitRequest request) {
-        boardService.submitBoard(request);
+    public ResponseEntity<Void> createBoard(@Validated @RequestPart(value = "request") BoardSubmitRequest request,
+                                            @RequestPart(value = "image") MultipartFile file) {
+        boardService.submitBoard(request, file);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

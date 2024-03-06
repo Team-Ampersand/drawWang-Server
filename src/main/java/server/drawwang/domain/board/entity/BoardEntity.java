@@ -26,8 +26,8 @@ public class BoardEntity {
     @JoinColumn(name = "thread")
     private ThreadEntity thread;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column(name = "image_id")
+    private String imageId;
 
     @Column(name = "likes")
     private Integer likes;

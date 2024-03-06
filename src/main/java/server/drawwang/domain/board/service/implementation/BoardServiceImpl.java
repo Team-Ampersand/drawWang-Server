@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import server.drawwang.domain.board.entity.BoardEntity;
 import server.drawwang.domain.board.entity.ToBoardResponse;
 import server.drawwang.domain.board.entity.dto.request.BoardSubmitRequest;
@@ -11,6 +12,7 @@ import server.drawwang.domain.board.repository.BoardRepository;
 import server.drawwang.domain.board.service.BoardService;
 import server.drawwang.domain.board.service.implementation.event.BoardLikedEvent;
 import server.drawwang.domain.board.service.implementation.event.SubmittedBoardEvent;
+import server.drawwang.domain.file.FileStore;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.repository.ThreadRepository;
 import server.drawwang.global.exception.CustomErrorCode;
@@ -24,17 +26,18 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final ThreadRepository threadRepository;
     private final ApplicationEventPublisher publisher;
+    private final FileStore fileStore;
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public void submitBoard(BoardSubmitRequest request) {
+    public void submitBoard(BoardSubmitRequest request, MultipartFile file) {
         ThreadEntity threadEntity = threadRepository.findById(request.getThreadId())
                 .orElseThrow(() -> new CustomException(CustomErrorCode.THREAD_NOT_FOUND_ERROR));
 
         BoardEntity boardEntity = BoardEntity.builder()
                 .userName(request.getUserName())
                 .thread(threadEntity)
-                .imageUrl(request.getImageUrl())
+                .imageId(fileStore.storeFile(file))
                 .likes(0)
                 .reports(0)
                 .build();
@@ -53,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
                         boardEntity.getId(),
                         boardEntity.getUserName(),
                         boardEntity.getThread().getId(),
-                        boardEntity.getImageUrl(),
+                        "/images/" + boardEntity.getImageId(),
                         boardEntity.getLikes(),
                         boardEntity.getReports()))
                 .toList();
