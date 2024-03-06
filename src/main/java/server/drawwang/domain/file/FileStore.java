@@ -12,15 +12,13 @@ import java.util.UUID;
 
 @Component
 public class FileStore {
-    @Value("${file.dir}")
-    private String fileDir;
 
     public String getFullPath(String fileName) {
         if(fileName.isEmpty()){
             return null;
         }
 
-        return fileDir + fileName;
+        return System.getProperty("user.dir") + File.separator + "/src/main/resources/images/" + fileName;
     }
 
     public String getPartialImagesPath(String fileName) {

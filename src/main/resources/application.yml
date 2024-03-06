@@ -15,6 +15,3 @@ spring:
 
 server:
   port: ${SERVER_PORT}
-
-file:
-  dir: ${FILE_DIR}

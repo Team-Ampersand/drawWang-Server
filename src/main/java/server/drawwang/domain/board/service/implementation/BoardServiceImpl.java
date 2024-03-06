@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
                         boardEntity.getId(),
                         boardEntity.getUserName(),
                         boardEntity.getThread().getId(),
-                        "/images/" + boardEntity.getImageId(),
+                        fileStore.getPartialImagesPath(boardEntity.getImageId()),
                         boardEntity.getLikes(),
                         boardEntity.getReports()))
                 .toList();
