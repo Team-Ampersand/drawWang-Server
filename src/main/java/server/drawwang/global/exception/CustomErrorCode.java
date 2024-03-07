@@ -14,7 +14,8 @@ public enum CustomErrorCode {
     BOARD_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "게시물을 찾을 수 없습니다."),
 
     //==500==//
-    FILE_PROCESSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일을 처리할 수 없습니다.");
+    FILE_PROCESSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일을 처리할 수 없습니다."),
+    FILE_CREATE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 경로를 생성할 수 없습니다.");
 
     private final HttpStatus statusCode;
     private final String statusMessage;
