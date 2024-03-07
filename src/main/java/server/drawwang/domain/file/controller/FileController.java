@@ -3,7 +3,9 @@ package server.drawwang.domain.file.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.drawwang.domain.file.FileStore;
@@ -22,9 +24,11 @@ public class FileController {
             Resource resource = new UrlResource("file:" + fileStore.getFullPath(filename));
 
             if(resource.exists() && resource.isReadable()) {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.IMAGE_PNG);
                 byte[] imageBytes = resource.getInputStream().readAllBytes();
 
-                return new ResponseEntity<>(imageBytes, HttpStatus.OK);
+                return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
             }
             else {
                 throw new CustomException(CustomErrorCode.IMAGE_NOT_FOUND_ERROR);
