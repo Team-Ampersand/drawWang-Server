@@ -47,13 +47,12 @@ public class ThreadServiceImpl implements ThreadService {
                     String kingImageId = Optional.ofNullable(kingBoardId)
                             .flatMap(id -> boardRepository.findById(id).map(BoardEntity::getImageId))
                             .orElse("");
-                    String kingImageUrl = fileStore.getPartialImagesPath(kingImageId);
 
                     return new ToThreadResponse(
                             threadEntity.getId(),
                             threadEntity.getThreadName(),
                             kingBoardId,
-                            kingImageUrl,
+                            kingImageId,
                             threadEntity.getExpirationDate()
                     );
                 })
