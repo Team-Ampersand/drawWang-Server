@@ -11,8 +11,8 @@ import server.drawwang.global.exception.CustomErrorCode;
 import server.drawwang.global.exception.CustomException;
 
 @RequiredArgsConstructor
-@ResponseBody
-@RestController("/api/image")
+@RestController
+@RequestMapping("/api/image")
 public class FileController {
     private final FileStore fileStore;
 
