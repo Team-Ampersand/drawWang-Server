@@ -1,41 +1,25 @@
 package server.drawwang.domain.file.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.drawwang.domain.file.FileStore;
-import server.drawwang.global.exception.CustomErrorCode;
-import server.drawwang.global.exception.CustomException;
+import server.drawwang.domain.file.entity.ToFileResponse;
+import server.drawwang.domain.file.entity.dto.response.FileListResponse;
+import server.drawwang.domain.file.service.FileService;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/image")
 public class FileController {
-    private final FileStore fileStore;
+    private final FileService fileService;
 
-    @GetMapping("/{filename}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable String filename) {
-        try {
-            Resource resource = new UrlResource("file:" + fileStore.getFullPath(filename));
-
-            if(resource.exists() && resource.isReadable()) {
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.IMAGE_PNG);
-                byte[] imageBytes = resource.getInputStream().readAllBytes();
-
-                return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-            }
-            else {
-                throw new CustomException(CustomErrorCode.IMAGE_NOT_FOUND_ERROR);
-            }
-        } catch (Exception e) {
-            throw new CustomException(CustomErrorCode.IMAGE_NOT_FOUND_ERROR);
-        }
+    @GetMapping
+    public ResponseEntity<FileListResponse> downloadImage(@RequestParam("boardId") long[] paramBoardId) {
+        List<ToFileResponse> responses = fileService.listImage(paramBoardId);
+        return new ResponseEntity<>(new FileListResponse(responses), HttpStatus.OK);
     }
 }
 
