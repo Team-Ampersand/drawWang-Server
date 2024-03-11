@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import server.drawwang.domain.board.entity.BoardEntity;
 import server.drawwang.domain.board.repository.BoardRepository;
-import server.drawwang.domain.file.FileStore;
 import server.drawwang.domain.thread.entity.ThreadEntity;
 import server.drawwang.domain.thread.entity.dto.request.CreateThreadRequest;
 import server.drawwang.domain.thread.entity.dto.response.ToThreadResponse;
@@ -23,7 +22,6 @@ public class ThreadServiceImpl implements ThreadService {
 
     private final ThreadRepository threadRepository;
     private final BoardRepository boardRepository;
-    private final FileStore fileStore;
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
@@ -47,13 +45,12 @@ public class ThreadServiceImpl implements ThreadService {
                     String kingImageId = Optional.ofNullable(kingBoardId)
                             .flatMap(id -> boardRepository.findById(id).map(BoardEntity::getImageId))
                             .orElse("");
-                    String kingImageUrl = fileStore.getPartialImagesPath(kingImageId);
 
                     return new ToThreadResponse(
                             threadEntity.getId(),
                             threadEntity.getThreadName(),
                             kingBoardId,
-                            kingImageUrl,
+                            kingImageId,
                             threadEntity.getExpirationDate()
                     );
                 })
