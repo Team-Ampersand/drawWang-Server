@@ -21,14 +21,6 @@ public class FileStore {
         return Paths.get(getFilePath(), fileName).toString();
     }
 
-    public String getPartialImagesPath(String fileName) {
-        if(fileName.isEmpty()) {
-            return "";
-        }
-
-        return File.separator + Paths.get("static", "images", fileName);
-    }
-
     public String storeFile(MultipartFile multipartFile)
     {
         if (multipartFile.isEmpty()) {

@@ -33,7 +33,7 @@ public class BoardController {
     }
 
     @PatchMapping("/{boardId}/like")
-    public ResponseEntity<Void> boaardLikes(@PathVariable Long boardId) {
+    public ResponseEntity<Void> boardLikes(@PathVariable Long boardId) {
         boardService.boardLike(boardId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
